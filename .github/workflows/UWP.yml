@@ -50,6 +50,7 @@ jobs:
         $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_PFX }}")
         $certificatePath = "LocalTalkUWP_TemporaryKey.pfx"
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
+      working-directory: LocalTalkUWP
         
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
