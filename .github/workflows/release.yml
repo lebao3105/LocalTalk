@@ -5,33 +5,23 @@ on:
   workflow_call:
 
 jobs:
-  fetch-artifacts:
+  build-binaries:
+    uses: ./.github/workflows/UWP.yml
+  
+  release:
     runs-on: windows-latest
+    needs: build-binaries
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - run: dir
-          
-      - name: Build binaries
-        uses: ./.github/workflows/UWP.yml
-
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: UWP
-  
-  release:
-    runs-on: windows-latest
-    needs: fetch-artifacts
-    permissions:
-      contents: write
-    steps:
+    
       - name: Create new release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release view "newest" && gh release delete "newest" -y --cleanup-tag
           gh release create "newest" "*.appx*" "*.msix*" -p -t "LocalTalk Newest" --generate-notes
-    
