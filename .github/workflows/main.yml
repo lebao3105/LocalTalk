@@ -1,0 +1,31 @@
+name: Release (UWP)
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  fetch-artifacts:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build binaries
+        uses: ./.github/workflows/UWP.yml
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: UWP
+  
+  release:
+    runs-on: windows-latest
+    needs: fetch-artifacts
+    permissions:
+      contents: write
+    steps:
+      - name: Create new release
+        run: |
+          gh release view "newest" && gh release delete "newest" -y --cleanup-tag
+          gh release create "newest" "*.appx*" "*.msix*" -p -t "LocalTalk Newest" --generate-notes
+    
