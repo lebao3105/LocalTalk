@@ -8,31 +8,11 @@ using System.Windows.Markup;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using LocalTalk.Resources;
-using LocalTalk.ViewModels;
 
 namespace LocalTalk
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel = null;
-
-        /// <summary>
-        /// A static ViewModel used by the views to bind against.
-        /// </summary>
-        /// <returns>The MainViewModel object.</returns>
-        public static MainViewModel ViewModel
-        {
-            get
-            {
-                // Delay creation of the view model until necessary
-                if (viewModel == null)
-                    viewModel = new MainViewModel();
-
-                return viewModel;
-            }
-        }
-
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -59,9 +39,6 @@ namespace LocalTalk
             // Show graphics profiling information while debugging.
             if (Debugger.IsAttached)
             {
-                // Display the current frame rate counters.
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
-
                 // Show the areas of the app that are being redrawn in each frame.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
 
@@ -88,11 +65,6 @@ namespace LocalTalk
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
         }
 
         // Code to execute when the application is deactivated (sent to background)
@@ -210,41 +182,34 @@ namespace LocalTalk
         //
         private void InitializeLanguage()
         {
-            try
+            var languageCode = System.Threading.Thread.CurrentThread.CurrentUICulture.NativeName;
+
+            if (!Shared.Languages.HasCode(languageCode))
+                languageCode = Shared.Languages.enUS;
+
+            Resources.MergedDictionaries.Add(new ResourceDictionary
             {
-                // Set the font to match the display language defined by the
-                // ResourceLanguage resource string for each supported language.
-                //
-                // Fall back to the font of the neutral language if the Display
-                // language of the phone is not supported.
-                //
-                // If a compiler error is hit then ResourceLanguage is missing from
-                // the resource file.
-                RootFrame.Language = XmlLanguage.GetLanguage(AppResources.ResourceLanguage);
+                Source = new Uri($"ms-appx:///Resources/Strings/{languageCode}.xaml")
+            });
 
-                // Set the FlowDirection of all elements under the root frame based
-                // on the ResourceFlowDirection resource string for each
-                // supported language.
-                //
-                // If a compiler error is hit then ResourceFlowDirection is missing from
-                // the resource file.
-                FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
-                RootFrame.FlowDirection = flow;
-            }
-            catch
-            {
-                // If an exception is caught here it is most likely due to either
-                // ResourceLangauge not being correctly set to a supported language
-                // code or ResourceFlowDirection is set to a value other than LeftToRight
-                // or RightToLeft.
+            // Set the font to match the display language defined by the
+            // ResourceLanguage resource string for each supported language.
+            //
+            // Fall back to the font of the neutral language if the Display
+            // language of the phone is not supported.
+            //
+            // If a compiler error is hit then ResourceLanguage is missing from
+            // the resource file.
+            RootFrame.Language = XmlLanguage.GetLanguage(languageCode);
 
-                if (Debugger.IsAttached)
-                {
-                    Debugger.Break();
-                }
-
-                throw;
-            }
+            // Set the FlowDirection of all elements under the root frame based
+            // on the ResourceFlowDirection resource string for each
+            // supported language.
+            //
+            // If a compiler error is hit then ResourceFlowDirection is missing from
+            // the resource file.
+            //FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
+            //RootFrame.FlowDirection = flow;
         }
     }
 }

@@ -16,18 +16,17 @@ namespace LocalTalk
         public MainPage()
         {
             InitializeComponent();
-
-            // Set the data context of the listbox control to the sample data
-            DataContext = App.ViewModel;
         }
 
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
+        }
+
+        private void Panorama_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Panorama p = sender as Panorama;
+            PanoramaBackground.Opacity = p.SelectedIndex != 0 ? 0 : 1;
         }
     }
 }
