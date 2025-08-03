@@ -38,7 +38,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-depth: 1
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
