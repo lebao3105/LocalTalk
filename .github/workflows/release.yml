@@ -8,6 +8,10 @@ jobs:
   fetch-artifacts:
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          
       - name: Build binaries
         uses: ./.github/workflows/UWP.yml
 
@@ -23,6 +27,8 @@ jobs:
       contents: write
     steps:
       - name: Create new release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release view "newest" && gh release delete "newest" -y --cleanup-tag
           gh release create "newest" "*.appx*" "*.msix*" -p -t "LocalTalk Newest" --generate-notes
