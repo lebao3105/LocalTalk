@@ -8,8 +8,6 @@ jobs:
   fetch-artifacts:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      
       - name: Build binaries
         uses: ./.github/workflows/UWP.yml
 
