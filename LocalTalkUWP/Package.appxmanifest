@@ -30,12 +30,12 @@
     <Capability Name="internetClient" />
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
+    <rescap:Capability Name="packageQuery"/>
+    <rescap:Capability Name="broadFileSystemAccess"/>
     <uap:Capability Name="musicLibrary" />
     <uap:Capability Name="picturesLibrary" />
     <uap:Capability Name="removableStorage" />
     <DeviceCapability Name="microphone" />
     <DeviceCapability Name="webcam" />
-    <rescap:Capability Name="packageQuery"/>
-    <rescap:Capability Name="broadFileSystemAccess"/>
   </Capabilities>
 </Package>

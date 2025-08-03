@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <Pivot x:Uid="s" Title="LOCALTALK">
+    <Pivot Title="LOCALTALK">
         <PivotItem Header="welcome">
             <Grid>
                 <Grid.RowDefinitions>

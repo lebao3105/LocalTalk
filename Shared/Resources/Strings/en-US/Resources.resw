@@ -125,7 +125,4 @@
     <value>en-US</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
-  <data name="s.Title" xml:space="preserve">
-    <value>test</value>
-  </data>
 </root>

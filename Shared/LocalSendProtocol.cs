@@ -16,7 +16,7 @@ namespace Shared
     public class LocalSendProtocol
     {
         public static LocalSendProtocol Instance { get; private set; }
-        public static readonly ADevice ThisDevice = new ADevice
+        public static readonly Device ThisDevice = new Device
         {
             alias = Settings.DeviceName,
             version = 2.0,
@@ -32,8 +32,8 @@ namespace Shared
             download = true,
             announce = true
         };
-        public static readonly ObservableCollection<ADevice> Devices
-            = new ObservableCollection<ADevice>();
+        public static readonly ObservableCollection<Device> Devices
+            = new ObservableCollection<Device>();
 
         private DatagramSocket DatagramSocket;
 
@@ -71,11 +71,13 @@ namespace Shared
 
             try
             {
-                ADevice dev = Internet.DeserializeObject<ADevice>(read);
+                Device dev = Internet.DeserializeObject<Device>(read);
                 // The fingerprint is used to...
                 if (!Devices.Any(elm => elm.Equals(dev)) && // avoid re-discovery...
                     !dev.Equals(ThisDevice)) // ...and avoid self-discovery
-                    Devices.Add(dev);
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                        Windows.UI.Core.CoreDispatcherPriority.High, () => Devices.Add(dev));
+                    // ^ ew long as hell
             }
             catch (Exception ex)
             {
