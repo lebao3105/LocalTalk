@@ -77,4 +77,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: UWP Packages
-        path: ${{ env.Solution_Name }}\\Packages
+        path: ${{ env.Solution_Name }}\\Packages\\*
