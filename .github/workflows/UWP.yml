@@ -81,5 +81,5 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: UWP Packages
-        path: ${{ env.Solution_Name }}\\Packages\\${{ env.Solution_Name }}*${{ matrix.platform }}*\\
+        name: UWP Package (${{ env.Solution_Name }})
+        path: ${{ env.Solution_Name }}\\Packages\\
