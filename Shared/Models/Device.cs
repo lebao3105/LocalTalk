@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using Windows.UI.Xaml.Controls;
 
-namespace Shared.Models
+namespace LocalTalk.Shared.Models
 {
     [DataContract]
     public struct Device : IEquatable<Device>
@@ -33,7 +33,7 @@ namespace Shared.Models
 
         [DataMember(IsRequired = false, Name = "announce")]
         public bool announce { get; set; }
-
+        
         [IgnoreDataMember]
         public Symbol glyph
         {
@@ -43,7 +43,7 @@ namespace Shared.Models
                 {
                     case "mobile": return Symbol.CellPhone;
 
-                    case "desktop": return Symbol.XboxOneConsole;
+                    case "desktop": return Symbol.GoToStart;
 
                     case "web": return Symbol.Globe;
 

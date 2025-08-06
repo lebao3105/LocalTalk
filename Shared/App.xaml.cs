@@ -1,72 +1,79 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using LocalTalk.Shared.Common;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace LocalTalkUWP
+namespace LocalTalk
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
-    sealed partial class App : Application
+    public sealed partial class App : Application
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
         }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
+        /// will be used when the application is launched to open a specific file, to display
+        /// search results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-            //this.Resources.MergedDictionaries.Add(new ResourceDictionary
-            //{
-            //    Source = new Uri("ms-appx:///Resources/Strings/en-US.xaml")
-            //});
-            new Shared.Internet();
-            new Shared.LocalSendProtocol();
+            string languageCode = Shared.Languages.HasCode(Shared.Settings.Language) ? Shared.Settings.Language :
+                        Windows.Globalization.ApplicationLanguages.Languages[0];
 
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
+            Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri($"ms-appx:///Resources/Strings/{languageCode}/Miscs.xaml")
+            });
+
+            //if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+            //{
+            // TODO: Tell the garbage collector to not collect these?
+            Shared.Internet.Init();
+            Shared.LocalSendProtocol.Init();
+            //}
+
             if (rootFrame == null)
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
+                rootFrame = new Frame
+                {
+                    CacheSize = 3, // number of pages cached in the naviagtion history
+                    Language = languageCode
+                };
                 rootFrame.NavigationFailed += OnNavigationFailed;
+
+                // Associate the frame with a SuspensionManager key.
+                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    // Restore the saved session state only when appropriate.
+                    try
+                    {
+                        await SuspensionManager.RestoreAsync();
+                    }
+                    catch (SuspensionManagerException)
+                    {
+                        // Something went wrong restoring state.
+                        // Assume there is no state and continue.
+                    }
                 }
 
-                // Place the frame in the current Window
+                // Place the frame in the current Window.
                 Window.Current.Content = rootFrame;
             }
 
+#if WINDOWS_UWP
             if (e.PrelaunchActivated == false)
             {
+#endif
                 if (rootFrame.Content == null)
                 {
                     // When the navigation stack isn't restored navigate to the first page,
@@ -76,7 +83,9 @@ namespace LocalTalkUWP
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+#if WINDOWS_UWP
             }
+#endif
         }
 
         /// <summary>
@@ -96,10 +105,10 @@ namespace LocalTalkUWP
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+            await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
     }

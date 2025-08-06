@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using Windows.UI.Xaml.Controls;
 
-namespace Shared.Models
+namespace LocalTalk.Shared.Models
 {
     [DataContract]
     public struct UploadObject

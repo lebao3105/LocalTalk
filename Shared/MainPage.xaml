@@ -1,11 +1,10 @@
 ﻿<Page
-    x:Class="LocalTalkUWP.MainPage"
+    x:Class="LocalTalk.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:LocalTalkUWP"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="using:Shared.Views"
+    xmlns:views="using:LocalTalk.Shared.Views"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
@@ -20,7 +19,6 @@
                 <TextBlock
                     Grid.Row="0"
                     VerticalAlignment="Center"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
                     TextAlignment="Center"
                     TextWrapping="Wrap">
                     Swipe left or right or both to discover all the features and settings.
@@ -28,15 +26,7 @@
                     you can get started.
                 </TextBlock>
 
-                <TextBlock
-                    Grid.Row="1"
-                    Margin="0,10"
-                    xml:space="preserve"
-                    FontFamily="Segoe MDL2 Assets"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    TextAlignment="Center"
-                    TextWrapping="Wrap">&#xE64E;   LocalTalk   &#xE64D;
-                </TextBlock>
+                <!--  TODO: Add something new here...  -->
             </Grid>
         </PivotItem>
 
@@ -62,14 +52,8 @@
                             Height="100"
                             Margin="12" />
                         <StackPanel Orientation="Vertical">
-                            <TextBlock
-                                FontWeight="SemiBold"
-                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                Text="localtalk" />
-                            <TextBlock
-                                x:Name="Version"
-                                FontWeight="SemiBold"
-                                Style="{StaticResource SubtitleTextBlockStyle}" />
+                            <TextBlock FontWeight="SemiBold" Text="localtalk" />
+                            <TextBlock x:Name="Version" FontWeight="SemiBold" />
                             <HyperlinkButton
                                 HorizontalContentAlignment="Left"
                                 Content="Source code"
@@ -91,7 +75,6 @@
                             <TextBlock
                                 FontWeight="SemiBold"
                                 RenderTransformOrigin="0.5,0.5"
-                                Style="{StaticResource SubtitleTextBlockStyle}"
                                 Text="lebao3105" />
                             <HyperlinkButton
                                 HorizontalContentAlignment="Left"

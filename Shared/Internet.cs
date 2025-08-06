@@ -8,19 +8,19 @@ using Windows.Storage.Streams;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Shared
+namespace LocalTalk.Shared
 {
     public class Internet
     {
-        public static Internet Instance;
+        public static Internet Instance { get; private set; }
         public bool IsFine { get; private set; }
         public NetworkConnectivityLevel ConnectionState;
 
         private static bool IsHandlerRegistered = false;
 
-        public Internet()
+        public static void Init()
         {
-            Instance = this;
+            Instance = new Internet();
 
             if (!IsHandlerRegistered)
             {
@@ -28,6 +28,8 @@ namespace Shared
                 IsHandlerRegistered = true;
             }
         }
+
+        private Internet() { }
 
         ~Internet()
         {

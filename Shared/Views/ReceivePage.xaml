@@ -1,9 +1,9 @@
 ﻿<UserControl
-    x:Class="Shared.Views.ReceivePage"
+    x:Class="LocalTalk.Shared.Views.ReceivePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:Shared.Views"
+    xmlns:local="using:LocalTalk.Shared.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
@@ -33,7 +33,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <local:Device Grid.Row="1" Name="SenderDevice" Visibility="Collapsed"/>
+        <local:Device Grid.Row="1" x:Name="SenderDevice" Visibility="Collapsed"/>
 
         <StackPanel Grid.Row="2" Visibility="Collapsed" Orientation="Vertical">
             <Button>

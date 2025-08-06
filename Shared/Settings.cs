@@ -1,46 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-#if WINDOWS_PHONE
-using System.Windows;
-using System.IO.IsolatedStorage;
-#else
 using Windows.Storage;
 using Windows.UI.Xaml;
-#endif
 
-namespace Shared
+namespace LocalTalk.Shared
 {
     public static class Settings
     {
-#if WINDOWS_PHONE
-        private static IsolatedStorageSettings localSettings =
-            IsolatedStorageSettings.ApplicationSettings;
-#else
         private static ApplicationDataContainer localSettings =
             ApplicationData.Current.LocalSettings;
-#endif
 
         public static void SetSetting(string key, object value)
         {
-#if WINDOWS_UWP
             localSettings.Values[key] = value;
-#else
-            localSettings[key] = value;
-            localSettings.Save();
-#endif
         }
 
         public static T GetSetting<T>(string key)
         {
             try
             {
-#if WINDOWS_UWP
                 return localSettings.Values.ContainsKey(key) ? (T)localSettings.Values[key] : default(T);
-#else
-                return localSettings.Contains(key) ? (T)localSettings[key] : default(T);
-#endif
             }
             catch
             {
@@ -89,6 +67,12 @@ namespace Shared
                     "Windows Phone";}
 #endif
             set { SetSetting("DeviceModel", value); }
+        }
+
+        public static string Language
+        {
+            get { return GetSetting<string>("Language") ?? Windows.Globalization.ApplicationLanguages.Languages[0]; }
+            set { SetSetting("Language", value); }
         }
         #endregion
 

@@ -4,11 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-#if WINDOWS_UWP
-using UWP = Windows.UI.Xaml.Controls;
-#endif
-
-namespace Shared
+namespace LocalTalk.Shared
 {
     public class StringList: List<string> { }
 
@@ -17,8 +13,17 @@ namespace Shared
         public static readonly string enUS = "en-US";
 
         public static bool HasCode(string code)
-            => typeof(Languages).GetFields(BindingFlags.Static)
-                                .Any(elm => elm.Name.Equals(code));
+        {
+            return
+#if WINDOWS_PHONE_APP
+            typeof(Languages).GetRuntimeFields()
+#else
+            typeof(Languages).GetFields(BindingFlags.Static)
+#endif
+                             .Any(elm =>
+                                    elm.Name.Equals(code.Replace("-", ""), StringComparison.OrdinalIgnoreCase) &&
+                                    elm.IsStatic && elm.IsLiteral);
+        }
     }
 
     public enum FileTransferResponses
@@ -31,13 +36,4 @@ namespace Shared
         TooManyRequests = 429,
         Unknown = 500
     }
-}
-
-namespace System.Windows.Controls
-{
-#if WINDOWS_PHONE
-    public class ListView : Microsoft.Phone.Controls.LongListSelector { }
-#else
-    public class ListView : UWP.ListView { }
-#endif
 }

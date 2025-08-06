@@ -1,17 +1,15 @@
-﻿using Shared.Models;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Cryptography;
+using Windows.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking;
-using Windows.Networking.Connectivity;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml.Controls;
+using LocalTalk.Shared.Models;
 
-namespace Shared
+namespace LocalTalk.Shared
 {
     public class LocalSendProtocol
     {
@@ -37,10 +35,12 @@ namespace Shared
 
         private DatagramSocket DatagramSocket;
 
-        public LocalSendProtocol()
+        public static void Init()
         {
-            Instance = this;
+            Instance = new LocalSendProtocol();
         }
+
+        private LocalSendProtocol() { }
 
         public async Task Start()
         {
@@ -91,15 +91,7 @@ namespace Shared
             char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
             byte[] data = new byte[4 * size];
 
-#if WINDOWS_UWP
-            using (var crypto = RandomNumberGenerator.Create())
-#endif
-            {
-#if WINDOWS_PHONE
-                var crypto = new RNGCryptoServiceProvider();
-#endif
-                crypto.GetBytes(data);
-            }
+            CryptographicBuffer.CopyToByteArray(CryptographicBuffer.GenerateRandom((uint)data.Length), out data);
 
             StringBuilder result = new StringBuilder(size);
             for (int i = 0; i < size; i++)

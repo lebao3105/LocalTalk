@@ -3,7 +3,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 
-namespace LocalTalkUWP
+namespace LocalTalk
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

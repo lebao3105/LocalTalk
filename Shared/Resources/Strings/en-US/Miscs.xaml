@@ -1,0 +1,76 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LocalTalk.Shared">
+
+    <local:StringList x:Key="Adjectives">
+        <x:String>Adorable</x:String>
+        <x:String>Beautiful</x:String>
+        <x:String>Big</x:String>
+        <x:String>Bright</x:String>
+        <x:String>Clean</x:String>
+        <x:String>Clever</x:String>
+        <x:String>Cool</x:String>
+        <x:String>Cute</x:String>
+        <x:String>Cunning</x:String>
+        <x:String>Determined</x:String>
+        <x:String>Energetic</x:String>
+        <x:String>Efficient</x:String>
+        <x:String>Fantastic</x:String>
+        <x:String>Fast</x:String>
+        <x:String>Fine</x:String>
+        <x:String>Fresh</x:String>
+        <x:String>Good</x:String>
+        <x:String>Gorgeous</x:String>
+        <x:String>Great</x:String>
+        <x:String>Handsome</x:String>
+        <x:String>Hot</x:String>
+        <x:String>Kind</x:String>
+        <x:String>Lovely</x:String>
+        <x:String>Mystic</x:String>
+        <x:String>Neat</x:String>
+        <x:String>Nice</x:String>
+        <x:String>Patient</x:String>
+        <x:String>Pretty</x:String>
+        <x:String>Powerful</x:String>
+        <x:String>Rich</x:String>
+        <x:String>Secret</x:String>
+        <x:String>Smart</x:String>
+        <x:String>Solid</x:String>
+        <x:String>Special</x:String>
+        <x:String>Strategic</x:String>
+        <x:String>Strong</x:String>
+        <x:String>Tidy</x:String>
+        <x:String>Wise</x:String>
+    </local:StringList>
+
+    <local:StringList x:Key="Fruits">
+        <x:String>Apple</x:String>
+        <x:String>Avocado</x:String>
+        <x:String>Banana</x:String>
+        <x:String>Blackberry</x:String>
+        <x:String>Blueberry</x:String>
+        <x:String>Broccoli</x:String>
+        <x:String>Carrot</x:String>
+        <x:String>Cherry</x:String>
+        <x:String>Coconut</x:String>
+        <x:String>Grape</x:String>
+        <x:String>Lemon</x:String>
+        <x:String>Lettuce</x:String>
+        <x:String>Mango</x:String>
+        <x:String>Melon</x:String>
+        <x:String>Mushroom</x:String>
+        <x:String>Onion</x:String>
+        <x:String>Orange</x:String>
+        <x:String>Papaya</x:String>
+        <x:String>Peach</x:String>
+        <x:String>Pear</x:String>
+        <x:String>Pineapple</x:String>
+        <x:String>Potato</x:String>
+        <x:String>Pumpkin</x:String>
+        <x:String>Raspberry</x:String>
+        <x:String>Strawberry</x:String>
+        <x:String>Tomato</x:String>
+    </local:StringList>
+
+</ResourceDictionary>
