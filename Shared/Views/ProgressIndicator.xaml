@@ -1,0 +1,54 @@
+<UserControl
+    x:Class="Shared.Views.ProgressIndicator"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="80" d:DesignWidth="400">
+
+    <Border Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" 
+            BorderBrush="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+            BorderThickness="1" CornerRadius="4" Margin="8" Padding="12">
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Current Operation -->
+            <TextBlock Grid.Row="0" Grid.Column="0" x:Name="OperationText" 
+                      Text="Ready" FontWeight="SemiBold" FontSize="14"/>
+            
+            <!-- Progress Percentage -->
+            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="ProgressText" 
+                      Text="0%" FontSize="12" VerticalAlignment="Center"/>
+
+            <!-- Progress Bar -->
+            <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" x:Name="MainProgressBar" 
+                        Minimum="0" Maximum="100" Value="0" 
+                        Height="6" Margin="0,8,0,4"/>
+
+            <!-- Active Operations List -->
+            <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" 
+                         VerticalScrollBarVisibility="Auto" MaxHeight="120"
+                         x:Name="OperationsScrollViewer" Visibility="Collapsed">
+                <StackPanel x:Name="OperationsContainer" Margin="0,4,0,0">
+                    <!-- Active operations will be added here -->
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Toggle Button for Details -->
+            <Button Grid.Row="2" Grid.Column="1" x:Name="ToggleDetailsButton" 
+                   Content="▼" FontSize="10" Width="24" Height="20" 
+                   HorizontalAlignment="Right" VerticalAlignment="Top"
+                   Click="OnToggleDetailsClick" Visibility="Collapsed"/>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,88 @@
+<UserControl x:Class="Shared.Views.SendPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:local="clr-namespace:Shared.Views"
+    xmlns:shared="clr-namespace:Shared"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- File Selection Controls -->
+        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollMode="Disabled">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="File" Click="OnFileButtonClick" Margin="4"/>
+                <Button Content="Media" Click="OnMediaButtonClick" Margin="4"/>
+                <Button Content="Folder" Click="OnFolderButtonClick" Margin="4"/>
+                <Button Content="Text" Margin="4"/>
+                <Button Content="App installer" Margin="4"/>
+                <Button Content="Contact" Margin="4"/>
+                <Button Content="Backup" Margin="4"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Pending Uploads using LongListSelector for Windows Phone -->
+        <phone:LongListSelector Name="PendingUploads" Grid.Row="1" Margin="8">
+            <phone:LongListSelector.ItemTemplate>
+                <DataTemplate>
+                    <local:TransferItem/>
+                </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+        </phone:LongListSelector>
+
+        <!-- Device Discovery Section -->
+        <Grid Grid.Row="2" Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Discovery Controls -->
+            <Grid Grid.Row="0" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Available Devices" 
+                          FontWeight="SemiBold" VerticalAlignment="Center"
+                          Style="{StaticResource PhoneTextSubtleStyle}"/>
+                
+                <Button Grid.Column="1" x:Name="RefreshButton" 
+                       Content="🔄" FontSize="16" Width="60" Height="40" 
+                       Margin="4,0" Click="OnRefreshDevicesClick"/>
+                
+                <ProgressBar Grid.Column="2" x:Name="DiscoveryProgress" 
+                             Width="60" Height="20" Margin="4,0"
+                             IsIndeterminate="False"/>
+            </Grid>
+            
+            <!-- Device List using ScrollViewer for Windows Phone -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="DeviceListContainer">
+                    <!-- Devices will be added here programmatically -->
+                    <TextBlock x:Name="NoDevicesMessage"
+                              Text="No devices found. Make sure devices are on the same network and LocalSend is running."
+                              TextWrapping="Wrap"
+                              Margin="16"
+                              Style="{StaticResource PhoneTextSubtleStyle}"
+                              HorizontalAlignment="Center"
+                              TextAlignment="Center"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

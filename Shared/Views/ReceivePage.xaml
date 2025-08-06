@@ -24,8 +24,9 @@
         
         <TextBlock x:Name="State" TextAlignment="Center" Grid.Row="1" />
         
-        <!-- Has something to receive -->
-        <ListView Name="FilesToReceive" Grid.Row="0" Visibility="Collapsed">
+        <!-- Has something to receive - using proper UWP ListView -->
+        <ListView Name="FilesToReceive" Grid.Row="0" Visibility="Collapsed" Margin="8"
+                  SelectionMode="None" IsItemClickEnabled="False">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:TransferItem/>
@@ -35,15 +36,20 @@
 
         <local:Device Grid.Row="1" Name="SenderDevice" Visibility="Collapsed"/>
 
-        <StackPanel Grid.Row="2" Visibility="Collapsed" Orientation="Vertical">
-            <Button>
+        <StackPanel Grid.Row="2" Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Click="OnAcceptAllClick" Margin="4" MinWidth="120">
                 <StackPanel Orientation="Horizontal">
                     <SymbolIcon Symbol="Accept"/>
-                    <TextBlock Text="Accept"/>
+                    <TextBlock Text="Accept All" Margin="8,0,0,0"/>
                 </StackPanel>
             </Button>
 
-            <CheckBox Content="Do not ask again"/>
+            <Button Click="OnRejectAllClick" Margin="4" MinWidth="120">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Symbol="Cancel"/>
+                    <TextBlock Text="Reject All" Margin="8,0,0,0"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

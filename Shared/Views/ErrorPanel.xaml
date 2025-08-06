@@ -1,0 +1,65 @@
+<UserControl
+    x:Class="Shared.Views.ErrorPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+
+    <Border Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" 
+            BorderBrush="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+            BorderThickness="1" CornerRadius="4" Margin="8">
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0" Background="{ThemeResource SystemControlBackgroundAccentBrush}" 
+                  Padding="12,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <FontIcon Grid.Column="0" Glyph="&#xE783;" 
+                         Foreground="White" FontSize="16" Margin="0,0,8,0"/>
+                
+                <TextBlock Grid.Column="1" x:Name="HeaderText" Text="Errors and Warnings" 
+                          Foreground="White" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                
+                <TextBlock Grid.Column="2" x:Name="ErrorCount" Text="0" 
+                          Foreground="White" FontSize="12" VerticalAlignment="Center" Margin="8,0"/>
+                
+                <Button Grid.Column="3" x:Name="CloseButton" Content="✕" 
+                       Background="Transparent" Foreground="White" BorderThickness="0"
+                       Width="24" Height="24" FontSize="12" Click="OnCloseClick"/>
+            </Grid>
+
+            <!-- Error List -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxHeight="200">
+                <StackPanel x:Name="ErrorListContainer" Margin="8">
+                    <!-- Error items will be added here programmatically -->
+                    <TextBlock x:Name="NoErrorsMessage" Text="No errors or warnings" 
+                              Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                              HorizontalAlignment="Center" Margin="16"/>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Actions -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" 
+                       Margin="8" Spacing="8">
+                <Button x:Name="ClearAllButton" Content="Clear All" 
+                       Click="OnClearAllClick" MinWidth="80"/>
+                <Button x:Name="RetryAllButton" Content="Retry All" 
+                       Click="OnRetryAllClick" MinWidth="80"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

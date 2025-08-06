@@ -10,8 +10,16 @@ using Microsoft.Phone.Shell;
 
 namespace LocalTalk.Views
 {
+    /// <summary>
+    /// Represents the About page user control that displays application information, version details, and developer credits.
+    /// This control provides users with information about the LocalTalk application and its creator.
+    /// </summary>
     public partial class About : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the About user control.
+        /// Loads the application version from the WMAppManifest.xml file and displays it in the UI.
+        /// </summary>
         public About()
         {
             InitializeComponent();

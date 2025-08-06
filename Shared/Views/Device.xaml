@@ -9,22 +9,67 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid HorizontalAlignment="Stretch">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
+    <Border x:Name="DeviceBorder"
+            Background="{ThemeResource SystemControlBackgroundListLowBrush}"
+            BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+            BorderThickness="1" CornerRadius="4" Margin="4" Padding="12"
+            Tapped="OnDeviceTapped">
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <SymbolIcon Symbol="{Binding glyph}" Grid.Column="0"/>
+            <!-- Device Icon with Status Indicator -->
+            <Grid Grid.Column="0" Margin="0,0,12,0">
+                <Border Width="48" Height="48"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                        CornerRadius="24">
+                    <SymbolIcon Symbol="{Binding glyph}"
+                               Foreground="White" FontSize="20"/>
+                </Border>
 
-        <StackPanel HorizontalAlignment="Stretch" Grid.Column="1">
-            <TextBlock Text="{Binding alias}"/>
-            <TextBlock Text="{Binding deviceModel}"/>
-        </StackPanel>
+                <!-- Connection Status Indicator -->
+                <Ellipse x:Name="StatusIndicator"
+                         Width="16" Height="16"
+                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                         Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}"
+                         Stroke="White" StrokeThickness="2"/>
+            </Grid>
 
-        <ToggleButton HorizontalAlignment="Right" Grid.Column="2">
-            <SymbolIcon Symbol="Favorite"/>
-        </ToggleButton>
-    </Grid>
+            <!-- Device Information -->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="{Binding alias}"
+                          FontWeight="SemiBold" FontSize="16"
+                          TextTrimming="CharacterEllipsis"/>
+                <TextBlock Text="{Binding deviceModel}"
+                          Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                          FontSize="12" TextTrimming="CharacterEllipsis"/>
+                <TextBlock x:Name="ConnectionStatus" Text="Available"
+                          Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                          FontSize="10"/>
+            </StackPanel>
+
+            <!-- Connection Quality Indicator -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal"
+                       VerticalAlignment="Center" Margin="8,0">
+                <Rectangle x:Name="Signal1" Width="3" Height="8"
+                          Fill="{ThemeResource SystemControlForegroundBaseMediumBrush}" Margin="1"/>
+                <Rectangle x:Name="Signal2" Width="3" Height="12"
+                          Fill="{ThemeResource SystemControlForegroundBaseMediumBrush}" Margin="1"/>
+                <Rectangle x:Name="Signal3" Width="3" Height="16"
+                          Fill="{ThemeResource SystemControlForegroundBaseMediumBrush}" Margin="1"/>
+                <Rectangle x:Name="Signal4" Width="3" Height="20"
+                          Fill="{ThemeResource SystemControlForegroundBaseMediumBrush}" Margin="1"/>
+            </StackPanel>
+
+            <!-- Action Button -->
+            <Button x:Name="ActionButton" Grid.Column="3"
+                   Content="Connect" FontSize="12"
+                   MinWidth="80" Height="32"
+                   Click="OnActionButtonClick"/>
+        </Grid>
+    </Border>
 </UserControl>

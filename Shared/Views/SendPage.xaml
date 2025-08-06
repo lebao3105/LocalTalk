@@ -14,15 +14,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Hidden"
                       VerticalScrollMode="Disabled">
             <StackPanel Orientation="Horizontal">
-                <AppBarButton Icon="OpenFile" Label="File"/>
-                <AppBarButton Icon="BrowsePhotos" Label="Media"/>
-                <AppBarButton Icon="Folder" Label="Folder"/>
+                <AppBarButton Icon="OpenFile" Label="File" Click="OnFileButtonClick"/>
+                <AppBarButton Icon="BrowsePhotos" Label="Media" Click="OnMediaButtonClick"/>
+                <AppBarButton Icon="Folder" Label="Folder" Click="OnFolderButtonClick"/>
                 <AppBarButton Icon="Edit" Label="Text"/>
                 <AppBarButton Icon="AllApps" Label="App installer"/>
                 <AppBarButton Icon="Contact" Label="Contact"/>
@@ -30,7 +31,37 @@
             </StackPanel>
         </ScrollViewer>
 
-        <ListView Name="PendingUploads" Grid.Row="1">
+        <!-- Workflow Status Section -->
+        <Border Grid.Row="1" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
+                Margin="8" Padding="12" CornerRadius="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <TextBlock x:Name="WorkflowStatusText" Text="Ready to send files"
+                              FontWeight="SemiBold" FontSize="14"/>
+                    <ProgressBar x:Name="WorkflowProgressBar"
+                                Minimum="0" Maximum="100" Value="0"
+                                Height="4" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <Button x:Name="StartWorkflowButton" Grid.Column="1"
+                       Content="Start Transfer" Margin="8,0,4,0"
+                       Click="OnStartWorkflowClick"/>
+
+                <Button x:Name="CancelWorkflowButton" Grid.Column="2"
+                       Content="Cancel" Margin="4,0,0,0"
+                       Click="OnCancelWorkflowClick" IsEnabled="False"/>
+            </Grid>
+        </Border>
+
+        <!-- Pending Uploads using proper UWP ListView -->
+        <ListView Name="PendingUploads" Grid.Row="2" Margin="8"
+                  SelectionMode="None" IsItemClickEnabled="False">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:TransferItem/>
@@ -38,13 +69,45 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <ListView Name="TargetList" Grid.Row="2"
-                  ItemsSource="{x:Bind shared:LocalSendProtocol.Devices}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <local:Device/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <!-- Device Discovery Section -->
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Discovery Controls -->
+            <Grid Grid.Row="0" Margin="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Available Devices"
+                          FontWeight="SemiBold" VerticalAlignment="Center"/>
+
+                <Button Grid.Column="1" x:Name="RefreshButton"
+                       Content="🔄" FontSize="16" Width="40" Height="32"
+                       Margin="4,0" Click="OnRefreshDevicesClick"
+                       ToolTipService.ToolTip="Refresh device list"/>
+
+                <ProgressRing Grid.Column="2" x:Name="DiscoveryProgress"
+                             Width="24" Height="24" Margin="4,0"
+                             IsActive="False"/>
+            </Grid>
+
+            <!-- Device List -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="DeviceListContainer">
+                    <!-- Devices will be added here programmatically -->
+                    <TextBlock x:Name="NoDevicesMessage"
+                              Text="No devices found. Make sure devices are on the same network and LocalSend is running."
+                              TextWrapping="Wrap" Margin="16"
+                              Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                              HorizontalAlignment="Center" TextAlignment="Center"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

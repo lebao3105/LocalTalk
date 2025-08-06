@@ -1,0 +1,47 @@
+<UserControl x:Class="Shared.Views.ReceivePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:local="clr-namespace:Shared.Views"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+
+    <Grid VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Idle -->
+        <TextBlock
+            Grid.Row="0"
+            x:Name="DeviceName"
+            FontWeight="Bold"
+            Style="{StaticResource PhoneTextLargeStyle}"
+            TextAlignment="Center" />
+        
+        <TextBlock x:Name="State" TextAlignment="Center" Grid.Row="1" 
+                   Style="{StaticResource PhoneTextNormalStyle}"/>
+        
+        <!-- Has something to receive - using LongListSelector for Windows Phone -->
+        <phone:LongListSelector Name="FilesToReceive" Grid.Row="0" Visibility="Collapsed" Margin="8">
+            <phone:LongListSelector.ItemTemplate>
+                <DataTemplate>
+                    <local:TransferItem/>
+                </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+        </phone:LongListSelector>
+        
+        <!-- Action buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="8">
+            <Button Content="Accept All" Margin="4" MinWidth="120"/>
+            <Button Content="Reject All" Margin="4" MinWidth="120"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

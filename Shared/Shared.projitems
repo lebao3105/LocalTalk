@@ -33,6 +33,56 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Device.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Upload.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\IPlatformAbstraction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\PlatformFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\WindowsPhonePlatform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\UwpPlatform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\ILogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\IConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\Configuration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\IPerformanceMonitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\PerformanceMonitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\InfrastructureInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\CertificateManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\SecurityAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\ReplayAttackDetector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\TransferEncryptionManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\EncryptedStream.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Security\TransferVerificationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Http\LocalSendHttpServer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Http\RouteHandlers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Http\SessionManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Http\RobustHttpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Protocol\ProtocolVersionManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\FileSystemSecurityAnalyzer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\UniversalFilePicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\MetadataExtractor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\MetadataValidationEngine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\LargeFileHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\MemoryManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\NetworkInterfaceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\FirewallManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Platform\NatTraversalProviders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Protocol\ChunkedTransferProtocol.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Protocol\ConnectionManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Protocol\TransferResumeManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Protocol\BandwidthQoSManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Protocol\RealTimeProgressTracker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Protocol\ConcurrentTransferEngine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Protocol\ErrorHandlingManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Protocol\TransferQueueManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\NetworkMonitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\FileTypeDetector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\ThumbnailGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\FileSystemMonitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\StorageManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\StorageTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\FileIntegrityManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\IntegrityTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\PathNormalizer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileSystem\PathTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Http\HttpPerformanceOptimizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Device.xaml.cs">
       <DependentUpon>Device.xaml</DependentUpon>
     </Compile>
@@ -45,6 +95,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\TransferItem.xaml.cs">
       <DependentUpon>TransferItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Localization\LocalizationFramework.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization\DefaultResourceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)README.md" />

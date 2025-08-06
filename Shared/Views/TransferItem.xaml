@@ -9,7 +9,72 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid Margin="8" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"
+          CornerRadius="4" Padding="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
+        <!-- File Icon -->
+        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                Width="48" Height="48" Margin="0,0,12,0"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                CornerRadius="4">
+            <FontIcon x:Name="FileIcon" Glyph="&#xE8A5;"
+                     Foreground="White" FontSize="24"/>
+        </Border>
+
+        <!-- File Info -->
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+            <TextBlock x:Name="FileName" Text="File Name"
+                      FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+            <TextBlock x:Name="FileSize" Text="0 MB"
+                      Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                      FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status and Actions -->
+        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal"
+                   VerticalAlignment="Center">
+            <TextBlock x:Name="StatusText" Text="Pending"
+                      Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                      FontSize="12" Margin="0,0,8,0"/>
+            <Button x:Name="CancelButton" Content="✕"
+                   Width="32" Height="32" FontSize="12"
+                   Click="OnCancelClick" Visibility="Collapsed"/>
+        </StackPanel>
+
+        <!-- Progress Bar -->
+        <ProgressBar x:Name="TransferProgress" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                    Margin="0,8,0,0" Height="4"
+                    Minimum="0" Maximum="100" Value="0"
+                    Visibility="Collapsed"/>
+
+        <!-- Transfer Details -->
+        <Grid x:Name="TransferDetails" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+              Margin="0,4,0,0" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="TransferSpeed" Grid.Column="0" Text="0 MB/s"
+                      FontSize="10"
+                      Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
+            <TextBlock x:Name="TransferredAmount" Grid.Column="1" Text="0 / 0 MB"
+                      FontSize="10" Margin="8,0,0,0"
+                      Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
+            <TextBlock x:Name="TimeRemaining" Grid.Column="2" Text="--:--"
+                      FontSize="10" Margin="8,0,0,0"
+                      Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"/>
+        </Grid>
     </Grid>
 </UserControl>

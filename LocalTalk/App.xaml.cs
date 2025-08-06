@@ -185,7 +185,7 @@ namespace LocalTalk
             var languageCode = System.Threading.Thread.CurrentThread.CurrentUICulture.NativeName;
 
             if (!Shared.Languages.HasCode(languageCode))
-                languageCode = Shared.Languages.enUS;
+                languageCode = Shared.Languages.EnUS;
 
             Resources.MergedDictionaries.Add(new ResourceDictionary
             {
