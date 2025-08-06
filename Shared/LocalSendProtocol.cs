@@ -20,7 +20,7 @@ namespace LocalTalk.Shared
             version = 2.0,
             deviceModel = Settings.DeviceModel,
 #if WINDOWS_UWP
-            deviceType = Windows.System.Profile.AnalyticsInfo.DeviceForm.EndsWith("Mobile") ? "mobile" : "desktop",
+            deviceType = Windows.System.Profile.AnalyticsInfo.DeviceForm.ToLower().EndsWith("mobile") ? "mobile" : "desktop",
 #else
             deviceType = "mobile",
 #endif
